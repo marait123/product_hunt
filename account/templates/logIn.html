@@ -1,0 +1,23 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if  error %}
+<h1 style="background-color: red; color: white; padding: 2%;">{{ error }}</h1>
+{% endif %}
+
+<h1>welcome to log In Page</h1>
+
+        <form action="{% url 'logIn' %}" method="POST" >
+            {% csrf_token %}
+            <label for="userName">userName: </label>
+            <input type="text" class = 'form-control' name = 'userName' placeholder="username"  required>
+            <br/>
+            <label for="password"> password: </label>
+            <input type="password" class = 'form-control' name = 'password' placeholder="password" required>
+          
+            <input class = "btn btn-primary submitButton" type="submit" value="Log In">
+        </form>
+        
+{% endblock  %}

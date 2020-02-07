@@ -4,7 +4,6 @@
 <html lang="en">
   <head>
 {% comment %} where we load the static files {% endcomment %}
-
     {% load staticfiles %}
 
     <meta charset="utf-8">
@@ -14,11 +13,15 @@
     <meta name="generator" content="Jekyll v3.8.5">
     <title>Album example · Bootstrap</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
+    {% comment %} <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/"> {% endcomment %}
 
     <!-- Bootstrap core CSS -->
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+   
+{% comment %} <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> {% endcomment %}
+     {% comment %} <link rel="stylesheet" href="{% static 'bootstrap\dist\css\bootstrap.min.css' %}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">  {% endcomment %}
+    
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -55,40 +58,98 @@
         width: 100%;
         height: 60px;
       }
+      .bigLetter{
+        background-color: blue;
+        color: white;
+        font-weight: bold;
+        font-size: larger;
+        padding: 2px;
+        margin-right: 3px;
+      }
+      .header{
+        background-color: aliceblue;
+        margin-bottom: 30px;
+        /* background-color:rgb(100, 115, 128); */
+      }
+      .footer{
+        background-color: aliceblue;
+        margin-top: 30px;
+        /* background-color:rgb(100, 115, 128); */
+      }
+      #dropdownMenu1{
+        width: 100%;
+        margin-top: 5%;
+        
+      }
+      .submitButton
+{
+    display:block; 
+    margin: 2% auto;
+}
     </style>
-
-
     <!-- Custom styles for this template -->
- <link href="{% static 'album.css' %}" rel="stylesheet">
+ <link href="{% static 'base1.css' %}" rel="stylesheet">
+ <link rel="stylesheet" href="{% static 'css/style.css' %}">
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Mohammed Ibrahim</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    </nav> -->
+      
+    
+
+      <div class="container header">
+        <div  class="row">
+          <div class="col-md-5 col-xs-7">
+            <a class="navbar-brand" href="{% url 'home' %}"><span class="bigLetter">P</span>roduct <span class = "bigLetter">H</span>unt</a>
+             </div>
+          <div class="col-md-5 col-xs-0"></div>
+           <div class="col-md-2 col-xs-5">
+
+            <div class="dropdown">
+              <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu1" data-toggle = "dropdown">
+                sign <span class="caret"></span>
+              </button>
+             <ul class="dropdown-menu">
+             
+        {% if user.is_authenticated %}    
+
+               <li><a href="javascript:{document.getElementById('logout').submit();}">log out</a></li>
+               <form id="logout" action="{% url 'logOut' %}" method="POST" >
+                {% csrf_token %}
+                  <input type="hidden">
+               </form>
+        {% else %}
+                  <li><a href="{% url 'signUp' %}">sign up</a></li>
+                  <li><a href="{% url 'logIn' %}">log In</a></li>
+        {% endif %}
+             </ul>
+            </div>
+
+           </div>
+          </div>
+        </div>
+    
+      <!-- 
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse " id="navbarNavDropdown">
         <ul class="navbar-nav  ml-auto">
+        
           <li class="nav-item">
-            <a class="nav-link" href="https://www.facebook.com/watchsurveilliance/?hc_ref=ARQLRMqVJKuNIO71Puv978aVofp16_YZLR15yMeav4-FIvC6lU2NljD6-sGfgukTseY&fref=tag&__xts__[0]=68.ARBZkG_dMiVsFWjTqX-cG2KXHvgFFB-af5WrDawTZqXx3l21f4UeiEl4mIlVwAmQAWwmbTWc-Ed_waJxIV1LZ55yKK4OXU9XqDZs8zVfXyhY2q9G-eFe9Xztou4f9NBQijC-t2myiklWYrSQG11XrXM6IgQL7ZwjqNND22Q-J6_gBpTj-3fS-aHi4gVwjZE3YwLM8BezgJcla2W4L83PoMTj-GoUgAVIiyMIBR1WgmbQXejLSxi5n73CGj-agRFG0Mo6VeSw1t6o_Q79uaTheoTugyn1EwC89voMfiYGdfzhiCzFJUYGqXo-tKhnCAwXkNzz0d-HdNe9mtpVXLBVn9u2UOY-jiAaiUR0u7QJsE1Eq4PmGYrpK5otjassqQtgej9MwbivK2BcoM2qlJ_NnYglU_BBaj9a7K45ouF5Px5EKLOLshzGcZWqtga4QWAD1ej0iQdbsC7iHj3BCMtT6ypzlQ&__tn__=kC-R">Facebook <span class="sr-only">(current)</span></a>
-          </li>
+            <a class="nav-link" href="{% url 'logIn' %}">Sign In</a>
+          </li>   
           <li class="nav-item">
-            <a class="nav-link" href="{% static 'resume.pdf' %}">Resume</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">blog</a>
+            <a class="nav-link" href="{% url 'signUp' %}">Sign Up</a>
           </li>   
         </ul>
-      </div>
-    </nav>
+      </div> -->
+
+
 <main role="main">
 
-  <section class="jumbotron text-center">
-    <div class="container">    
-    </div>
-  </section>
 
-  <div class="album py-5 bg-light">
+  
     <div class="container">
             
 
@@ -96,22 +157,32 @@
     {% endblock  %}
 
     </div>  
-    </div>
+    
 
 </main>
 
-<footer class="text-muted">
+<footer class="text-muted footer">
   <div class="container">
     <p class="float-right">
       <a href="#">Back to top</a>
     </p>
     <p>&copy; mohammed ibrahim <span id = "currYear">{% now "Y" %}</span></p>
- 
   </div>
 </footer>
 
+
+    
+    <script src="{% static 'js/jquery-3.2.1.slim.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    
+{% comment %} 
+<script src="{% static 'jquery\dist\jquery.slim.min.js' %}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="{% static 'bootstrap\dist\js\bootstrap.min.js' %}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> {% endcomment %}
+
+{% comment %} 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> {% endcomment %}
+
 </body>
 </html>

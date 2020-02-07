@@ -1,0 +1,49 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if  error %}
+<h1 style="background-color: red; color: white; padding: 2%;">{{ error }}</h1>
+
+{% endif %}
+<style>
+
+
+</style>
+<div class="row">
+    <div class="col-md-6">
+
+        <form action="{% url 'logIn' %}" method="POST" >
+            {% csrf_token %}
+            <label for="userName">userName: </label>
+            <input type="text" class = 'form-control' name = 'userName' placeholder="username"  required>
+            <br/>
+            <label for="password"> password: </label>
+            <input type="password" class = 'form-control' name = 'password' placeholder="password" required>
+          
+            <input class = "btn btn-primary submitButton" type="submit" value="Log In">
+        </form>
+    </div>
+    <div class="col-md-6">
+        <form action="{% url 'signUp' %}" method="POST" >
+            {% csrf_token %}
+            <label for="userName">userName: </label>
+            <input type="text" class = 'form-control' name = 'userName' placeholder="username"  required>
+            <br/>
+            <label for="password"> password: </label>
+            <input type="password" class = 'form-control' name = 'password' placeholder="password" required>
+           
+            <label for="confirmPassword"> Confirm Password: </label>
+
+            <input type="confirmPassword" class = 'form-control' name = 'confirmPassword' placeholder="Confirm Password" required>
+
+            <input  class = "btn btn-primary submitButton" type="submit" value="Sign Up">
+
+        </form>
+    </div>
+</div>
+<h1>welcome to sign Up Page</h1>
+
+
+{% endblock  %}

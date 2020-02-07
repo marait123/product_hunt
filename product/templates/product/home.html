@@ -1,9 +1,42 @@
 {% extends 'base.html' %}
 
+
+
 {% block content %}
+
+{% load staticfiles %}
+
+<style>
+    .imgProduct{
+        width: 100%;
+        height: 100%;
+    }
+    .btnVote{
+        position: relative;
+        left: 10%;
+        display: block;
+        margin: 10%;
+        padding: 10%;
+    }
+</style>
+{% if user.is_authenticated %}
+    {% csrf_token %}
+    <h1> User Name: {{ user.username }} </h1>
+    <h1> User Email: {{ user.email }}</h1>
+{% endif %}
+
+
 <div class="row">
-    <div class="col-md-12">
-        <h1>this is the test column</h1>
+    <div class="col-md-4">
+        <img class="imgProduct" src="{% static 'mohammed.jpg' %}" alt="">
+    </div>
+    <div class="col-md-6">
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod possimus blanditiis, deserunt, autem odit at doloribus, sit distinctio eos eveniet sed pariatur minima ipsum! Earum possimus reiciendis obcaecati tempore aspernatur?    
+</div>
+
+    <div class="col-md-2">
+        <a role="button" class="btn btn-primary btnVote" href="#">Up Vote</a>
+        <a role="button" class="btn btn-primary btnVote" href="#">Down Vote</a>
     </div>
 </div>
 {% endblock  %}
