@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+{% load staticfiles %}
+
+<style>
+    .imgProduct{
+        width: 100%;
+        height: 100%;
+    }
+    .btnVote{
+        position: relative;
+        left: 10%;
+        display: block;
+        margin: 10%;
+        padding: 10%;
+    }
+</style>
+{% if user.is_authenticated %}
+    {% csrf_token %}
+    <h1> User Name: {{ user.username }} </h1>
+    <h1> User Email: {{ user.email }}</h1>
+{% endif %}
+
+{% if  error %}
+<h1 style="background-color: red; color: white; padding: 2%;">{{ error }}</h1>
+{% endif %}
+
+<h1>let's create our prodcut</h1>
+
+<form action="{% url 'createProduct' %}" method="POST" enctype="multipart/form-data" >
+    {% csrf_token %}
+    <label for="title">title: </label>
+    <input type="text" class = 'form-control' name = 'title' placeholder="title"  required>
+
+    <label for="title">url: </label>
+    <textarea type="text" class = 'form-control' name = 'url' placeholder="url"  required> </textarea>
+
+    <label for="title">body: </label>
+    <textarea type="text" class = 'form-control' name = 'body' placeholder="body"  required> </textarea>
+
+
+    <label for="file">image: </label>
+    <input type="file" id="imageSRC" class = 'form-control' name = 'image' placeholder="file"   required>
+
+    <label for="file">icon: </label>
+    <input type="file" id="iconSRC" class = 'form-control' name = 'icon' placeholder="file"   required>
+
+    <input class = "btn btn-primary submitButton" type="submit" value="Create">
+
+
+</form>
+
+{% endblock  %}

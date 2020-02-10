@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
 
-
-
 {% block content %}
 
 {% load staticfiles %}
@@ -26,17 +24,25 @@
 {% endif %}
 
 
-<div class="row">
+{% for product in products %}
+
+<div class="row" style="margin-top: 10px;" >
     <div class="col-md-4">
-        <img class="imgProduct" src="{% static 'mohammed.jpg' %}" alt="">
+        <img class="imgProduct" src="{{ product.icon.url }}" alt="">
     </div>
     <div class="col-md-6">
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod possimus blanditiis, deserunt, autem odit at doloribus, sit distinctio eos eveniet sed pariatur minima ipsum! Earum possimus reiciendis obcaecati tempore aspernatur?    
-</div>
+    <h1><a href="{% url 'details' product.id %}">{{product.title}}</a></h1>
+    <p>{{product.summary}}</p>
+    <h2>up-votes: {{product.votes_total}} </h2> 
+    </div>
 
     <div class="col-md-2">
         <a role="button" class="btn btn-primary btnVote" href="#">Up Vote</a>
-        <a role="button" class="btn btn-primary btnVote" href="#">Down Vote</a>
     </div>
 </div>
+{% endfor %}
+
+
+
+
 {% endblock  %}
